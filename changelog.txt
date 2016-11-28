@@ -1,0 +1,4 @@
+newest at bottom
+
+Justin: he did some stuff but didnt do changelog lol
+Jason: fixed some issues with the key, also added extra model functions

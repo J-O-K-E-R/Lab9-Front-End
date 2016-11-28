@@ -15,7 +15,7 @@
 /**
  * Modified to use REST client to get port data from our server.
  */
-define('REST_SERVER', 'http://rest.local');  // the REST server host
+define('REST_SERVER', 'http://backend.local');  // the REST server host
 define('REST_PORT', $_SERVER['SERVER_PORT']);   // the port you are running the server on
 
 class Menu extends CI_Model {
@@ -53,4 +53,44 @@ class Menu extends CI_Model {
         $this->rest->option(CURLOPT_PORT, REST_PORT);
         return $this->rest->get('/maintenance/item/id/' . $key);
     }
+    
+    function create(){
+        $names = ['id', 'name', 'description', 'price', 'picture', 'category'];
+        $object = new StdClass;
+        foreach ($names as $name)
+            $object->$name = '';
+            
+        return $object;
+    }
+    
+    function delete($key, $key2 = null){
+        $this->rest->intitalize(array('server' => REST_SERVER));
+        $this->rest->option(CURLOPT_PORT, REST_PORT);
+        return $this->rest->delete('/maintenance/item/id/' . $key);
+    }
+    
+    // Determine if a key exists
+    function exists($key, $key2 = null)
+    {
+        $this->rest->initialize(array('server' => REST_SERVER));
+        $this->rest->option(CURLOPT_PORT, REST_PORT);
+        $result = $this->rest->get('/maintenance/item/id/' . $key);
+        return ! empty($result);
+    }
+    
+    // Update a record in the DB
+    function update($record)
+    {
+        $this->rest->initialize(array('server' => REST_SERVER));
+        $this->rest->option(CURLOPT_PORT, REST_PORT);
+        $retrieved = $this->rest->put('/maintenance/item/id/' . $record['code'], $record);
+    }
+    // Add a record to the DB
+    function add($record)
+    {
+        $this->rest->initialize(array('server' => REST_SERVER));
+        $this->rest->option(CURLOPT_PORT, REST_PORT);
+        $retrieved = $this->rest->post('/maintenance/item/id/' . $record['code'], $record);
+    }
+
 }

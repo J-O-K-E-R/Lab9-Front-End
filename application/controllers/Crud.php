@@ -34,10 +34,10 @@ class Crud extends Application{
     
     function edit($id=null) {    
         // try the session first    
-        $key = $this->session->userdata('key');    
-        $record = $this->session->userdata('record');   
+        // $key = $this->session->userdata('key');    
+        // $record = $this->session->userdata('record');   
          // if not there, get them from the database   
-         if (empty($record)) {            
+        if (empty($record)) {
             $record = $this->menu->get($id);           
             $key = $id;           
             $this->session->set_userdata('key',$id);            

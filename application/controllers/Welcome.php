@@ -17,21 +17,19 @@ class Welcome extends Application
 	 * map to /welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-        public function index() {
-            $result = '';
-            $oddrow = true;
-            foreach ($this->categories->all() as $category) {
-                $viewparms = array(
-                    'direction' => ($oddrow ? 'left' : 'right')
-                );
-                $viewparms = array_merge($viewparms, (array)$category);
-                $category->direction = ($oddrow ? 'left' : 'right');
-                $result .= $this->parser->parse('category-home', $category, true);
-                $oddrow = ! $oddrow;
-            }
-            $this->data['content'] = $result;
-            $this->render();
-        }     
-
-
+    public function index() {
+        $result = '';
+        $oddrow = true;
+        foreach ($this->categories->all() as $category) {
+            $viewparms = array(
+                'direction' => ($oddrow ? 'left' : 'right')
+            );
+            $viewparms = array_merge($viewparms, (array)$category);
+            $category->direction = ($oddrow ? 'left' : 'right');
+            $result .= $this->parser->parse('category-home', $category, true);
+            $oddrow = ! $oddrow;
+        }
+        $this->data['content'] = $result;
+        $this->render();
+    }     
 }
